@@ -11,19 +11,22 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(limit?:number) {
+  getPosts(limit?: number) {
     const { apiUrl } = environment
     let url = `${apiUrl}/posts`
-    if(limit){
+    if (limit) {
       url += `?limit=${limit}`
     }
-
     return this.http.get<Post[]>(url)
   }
 
   getThemes() {
     const { apiUrl } = environment
     return this.http.get<Theme[]>(`${apiUrl}/themes`)
+  }
+  getSingleTheme(id: string) {
+    const { apiUrl } = environment
+    return this.http.get<Theme>(`${apiUrl}/themes/${id}`)
   }
 
 }
