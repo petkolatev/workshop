@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
 import { DOMAINS } from '../../constants';
 import { mathPasswordsValidator } from '../../utils/math-passwords.validator';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent {
       tel: new FormControl(''),
       passGroup: new FormGroup(
         {
-          password: new FormControl('', [Validators.required,Validators.minLength(5)]),
+          password: new FormControl('', [Validators.required, Validators.minLength(5)]),
           rePassword: new FormControl('', [Validators.required]),
         },
         {
@@ -29,13 +30,14 @@ export class RegisterComponent {
         }
       ),
     })
+  constructor(private userService: UserService,private router:Router) { }
   isFiledTextMissing(controlName: string) {
     return (
       (this.form.get(controlName)?.touched &&
         (this.form.get(controlName)?.errors?.['required']))
     )
   }
-  
+
 
   get isNotMinLength() {
     return (
@@ -59,7 +61,12 @@ export class RegisterComponent {
     if (this.form.invalid) {
       return
     }
+    const { username, email, tel, passGroup: { password, rePassword } = {} } = this.form.value
     console.log(this.form.value);
-    
+    this.userService.register(username!, email!, tel!, password!, rePassword!).subscribe(()=>{
+      
+      this.router.navigate(['/themes'])
+    })
+
   }
 }

@@ -8,21 +8,23 @@ import { DOMAINS } from '../../constants';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, FormsModule,EmailDirective],
+  imports: [RouterLink, FormsModule, EmailDirective],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   domain = DOMAINS
-  
+
   constructor(private userService: UserService, private router: Router) { }
 
   login(form: NgForm) {
     if (form.invalid) {
       return
     }
+    const { email, password } = form.value
+    this.userService.login(email, password).subscribe(()=>{
+      this.router.navigate(['/themes'])
 
-    this.userService.login()
-    this.router.navigate(['/home'])
+    })
   };
 }

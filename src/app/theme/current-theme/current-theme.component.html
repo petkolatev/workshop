@@ -35,9 +35,9 @@
                 <p><span>{{post.likes.length || 0}}</span> likes</p>
             </div>
         </div>
-        }
+        }@if(isLOggedIn){
         <div class="answer-comment">
-            <p><span>currentUser</span> comment:</p>
+            <p><span>{{username}}</span> comment:</p>
             <div class="answer">
                 <form>
                     <textarea name="postText" id="comment" cols="30" rows="10"></textarea>
@@ -45,6 +45,7 @@
                 </form>
             </div>
         </div>
+        }
 
     </div>
 </div>

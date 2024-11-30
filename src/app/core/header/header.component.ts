@@ -11,17 +11,19 @@ import { UserService } from '../../user/user.service';
 })
 export class HeaderComponent {
 
-  get isLoggedIn():boolean{
+  get isLoggedIn(): boolean {
     return this.userService.isLogged
   }
-  get firstName():string{
-    return this.userService.user?.firstName || ''
+  get username(): string {
+    return this.userService.user?.username || ''
   }
 
-constructor(private userService:UserService,private router:Router){}
+  constructor(private userService: UserService, private router: Router) { }
 
-logout(){
-  this.userService.logout()
-  this.router.navigate(['/home'])
-}
+  logout() {
+    this.userService.logout().subscribe(()=>{
+      this.router.navigate(['/login'])
+
+    })
+  }
 }
