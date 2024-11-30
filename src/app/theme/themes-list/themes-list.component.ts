@@ -3,12 +3,15 @@ import { ApiService } from '../../api.service';
 import { Theme } from '../../types/theme';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { RouterLink } from '@angular/router';
-import { SlicePipe } from '@angular/common';
+import { SlicePipe } from '../../shared/loader/pipes/slice.pipe';
+import { ElapsedTimePipe } from '../../shared/loader/pipes/elapsed-time.pipe';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-themes-list',
   standalone: true,
-  imports: [LoaderComponent, RouterLink,SlicePipe],
+  imports: [LoaderComponent, RouterLink,SlicePipe,ElapsedTimePipe,DatePipe],
   templateUrl: './themes-list.component.html',
   styleUrl: './themes-list.component.css'
 })
