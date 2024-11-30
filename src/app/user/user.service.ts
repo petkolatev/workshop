@@ -18,9 +18,9 @@ export class UserService {
   }
 
   constructor(private http: HttpClient) {
-   this.user$.subscribe((user)=>{
-    this.user = user
-   })
+    this.user$.subscribe((user) => {
+      this.user = user
+    })
   }
 
   login(email: string, password: string) {
@@ -31,8 +31,8 @@ export class UserService {
   }
 
   logout() {
-    return this.http.post('/api/logout',{})
-    .pipe(tap((user) => this.user$$.next(null)))
+    return this.http.post('/api/logout', {})
+      .pipe(tap((user) => this.user$$.next(null)))
   }
 
   register(username: string, email: string, tel: string, password: string, rePassword: string) {
@@ -41,9 +41,16 @@ export class UserService {
       .pipe(tap((user) => this.user$$.next(user)))
 
   }
-  getProfile(){
-   return this.http.get<UserForAuth>('/api/users/profile')
-    .pipe(tap((user) => this.user$$.next(user)))
+  getProfile() {
+    return this.http.get<UserForAuth>('/api/users/profile')
+      .pipe(tap((user) => this.user$$.next(user)))
+  }
+  updateProfile(username: string,
+    email: string,
+    tel?: string
+  ) {
+    return this.http.put<UserForAuth>(`/api/users/profile`, { username, email, tel })
+      .pipe(tap((user) => this.user$$.next(user)))
   }
 
 }
