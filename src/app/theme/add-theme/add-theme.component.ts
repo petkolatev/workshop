@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-theme',
@@ -11,7 +12,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class AddThemeComponent {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
   addTheme(form: NgForm) {
 
@@ -19,11 +20,11 @@ export class AddThemeComponent {
       console.log(form.invalid);
       return
     }
-    console.log(form.value);
+    const { themeName, postText } = form.value
 
-    // this.apiService.createTheme(themeName, postText).subscribe((data) => {
-
-    // })
+    this.apiService.createTheme(themeName, postText).subscribe((data) => {
+      this.router.navigate(['/themes'])
+    })
 
 
   }
