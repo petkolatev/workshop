@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Route, Router, RouterLink } from '@angular/router';
+import {  Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
 import { DOMAINS } from '../../constants';
 import { mathPasswordsValidator } from '../../utils/math-passwords.validator';

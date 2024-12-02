@@ -11,7 +11,7 @@ export class ErrorMsgService {
   constructor() { }
 
 
-  seErrors(error: any): void {
+  setErrors(error: any): void {
     this.apiError$$.next(error)
   }
 }
